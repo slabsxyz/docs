@@ -4,6 +4,13 @@ slug: /
 ---
 
 # Introduction to Security Labs
+Security Labs is contributing to the key management abstraction scene by building a protocol providing
+
+- An actively cryptographically-verified mixing service (as in mixnets, which are compatible with current Tor nodes),
+- a Decentralized storage procedure for backing up private keys in a security-centric simple way, and
+- A standard interface to layer multiple authentication factors (e.g. passkey-compatible ones, threshold signature, simple passwords, etc.) so that flexible security levels and usability can be balanced.
+
+These are framed in our decentralized network for private key management, Functor Network.
 
 # What is Functor Network?
 
