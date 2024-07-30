@@ -7,7 +7,7 @@ const config: Config = {
   tagline: 'Key Management for Chain Abstraction',
   favicon: 'img/logo.svg',
   url: 'https://docs.securitylabs.xyz',
-  baseUrl: '/docs/',
+  baseUrl: '/',
   organizationName: 'slabsxyz', // Usually your GitHub org/user name.
   trailingSlash: true,
   projectName: 'docs', // Usually your repo name.
