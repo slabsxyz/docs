@@ -21,10 +21,14 @@ This simple guide shows a step by step on how to become a node in Functor Networ
 
     Once you create the account or connect your wallet you should be logged in and a screen like the following should appear.
 
-    ![Local image](../../static/img/become-a-light-node/node_connected.png)
+    ![Local image](../../static/img/become-a-light-node/connected.png)
 
-4. Open the extension and hit the CHECK IN button to maximize your rewards. Do this on a daily basis to keep earning.
+4. Refer others to maximize your earnings. Use the copy referral link to share with friends and family over social media or other platforms.
+
+    ![Local image](../../static/img/become-a-light-node/referral_connected.png)
+
+5. Open the extension and hit the CHECK IN button to maximize your rewards. Do this on a daily basis to keep earning.
 
     ![Local image](../../static/img/become-a-light-node/node_check_in_400.png)
 
-5. Any questions? Send an email to help@securitylabs.xyz
+6. Any questions? Send an email to help@securitylabs.xyz
