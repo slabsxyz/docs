@@ -64,15 +64,15 @@ const config: Config = {
           position: 'left',
           label: 'Tutorial',
         },
-        { to: '/blog', label: 'Blog', position: 'left' },
+        // { to: '/blog', label: 'Blog', position: 'left' },
         {
           href: 'https://github.com/slabsxyz/docs',
           label: 'GitHub',
           position: 'right',
         },
-        {
-          type: 'docsVersionDropdown',
-        },
+        // {
+        //   type: 'docsVersionDropdown',
+        // },
       ],
     },
     footer: {
@@ -83,7 +83,7 @@ const config: Config = {
           items: [
             {
               label: 'Tutorial',
-              to: '/docs/intro',
+              to: '/',
             },
           ],
         },
@@ -107,10 +107,10 @@ const config: Config = {
         {
           title: 'More',
           items: [
-            {
-              label: 'Blog',
-              to: '/blog',
-            },
+            // {
+            //   label: 'Blog',
+            //   to: '/blog',
+            // },
             {
               label: 'GitHub',
               href: 'https://github.com/slabsxyz',

@@ -54,7 +54,7 @@ All this has now made it possible to **eliminate theft, centralization, and unav
 
 # How does Functor Network work?
 
-![Local image](../static/img/diag_exc.png)
+![diagram_functor.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/24c52350-de91-41c2-86a2-1dddab26661d/da2efc18-c7a4-4a1d-9a60-93a3ecd0098c/diag_exc.png)
 
 1. **Intuitive UX**: Authentication can be performed using any passkey-compatible method, threshold signatures between owned devices, passwords, or any combination of these factors. This approach offers the best and most familiar user experience with a flexible level of security.
 2. **No single point of failure**: There is never a single point of failure because, from the client side, each pair of authentication information and data shards is sent independently into the mixnet for untraceable storage. This utilizes Shamir’s Secret Sharing and onion-layering techniques.
@@ -83,4 +83,4 @@ Functor Network is designed to benefit a wide range of users across various indu
     
 5. **Cybersecurity:**
     
-    • **Secure Storage:** Cybersecurity firms can leverage Functor Network for the secure storage of cryptographic keys and sensitive data, enhancing overall security posture and reducing the risk of data compromise.
+    • **Secure Storage:** Cybersecurity firms can leverage Functor Network for the secure storage of cryptographic keys and sensitive data, enhancing overall security posture and reducing the risk of data compromise.ram_functor
