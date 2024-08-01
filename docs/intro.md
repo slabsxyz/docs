@@ -3,7 +3,13 @@ sidebar_position: 1
 slug: /
 ---
 
-# Introduction to Security Labs
+# What is Functor Network?
+
+Functor Network by [Security Labs](https://node.securitylabs.xyz/) provides key management for [chain abstraction](https://frontier.tech/the-cake-framework). It is a decentralized, permissionless network designed for the secure backup of sensitive data (such as private keys) and the management of [session keys](https://demo.securitylabs.xyz/). 
+
+It offers a user experience inspired by traditional web2 applications, making it accessible and easy to use. The network supports every passkey-compatible authentication method, as well as threshold signature authentication, simple passwords, and any combination of these as flexible multi-factor authentication (MFA) options, depending on your security needs.
+
+:::info[Who is Security Labs]
 Security Labs is contributing to the key management abstraction scene by building a protocol providing
 
 - An actively cryptographically-verified mixing service (as in mixnets, which are compatible with current Tor nodes),
@@ -12,11 +18,7 @@ Security Labs is contributing to the key management abstraction scene by buildin
 
 These are framed in our decentralized network for private key management, Functor Network.
 
-# What is Functor Network?
-
-Functor Network by [Security Labs](https://node.securitylabs.xyz/) provides key management for [chain abstraction](https://frontier.tech/the-cake-framework). It is a decentralized, permissionless network designed for the secure backup of sensitive data (such as private keys) and the management of [session keys](https://demo.securitylabs.xyz/). 
-
-It offers a user experience inspired by traditional web2 applications, making it accessible and easy to use. The network supports every passkey-compatible authentication method, as well as threshold signature authentication, simple passwords, and any combination of these as flexible multi-factor authentication (MFA) options, depending on your security needs.
+:::
 
 # Why Functor Network?
 
