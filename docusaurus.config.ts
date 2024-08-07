@@ -5,7 +5,8 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'Security Labs',
   tagline: 'Key Management for Chain Abstraction',
-  favicon: 'img/logo.svg',
+  // favicon: 'img/logo.svg',
+  favicon: 'img/functor_logo.jpg',
   url: 'https://docs.securitylabs.xyz',
   baseUrl: '/',
   organizationName: 'slabsxyz', // Usually your GitHub org/user name.
@@ -31,7 +32,7 @@ const config: Config = {
           routeBasePath: '/',
           sidebarPath: './sidebars.ts',
           editUrl:
-            'https://github.com/slabsxyz/docs/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/slabsxyz/docs/tree/main/',
         },
         // blog: {
         //   showReadingTime: true,

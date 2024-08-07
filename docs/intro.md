@@ -9,8 +9,8 @@ Functor Network by [Security Labs](https://node.securitylabs.xyz/) provides key 
 
 It offers a user experience inspired by traditional web2 applications, making it accessible and easy to use. The network supports every passkey-compatible authentication method, as well as threshold signature authentication, simple passwords, and any combination of these as flexible multi-factor authentication (MFA) options, depending on your security needs.
 
-:::info[Who is Security Labs]
-Security Labs is contributing to the key management abstraction scene by building a protocol providing
+:::info[Who is [Security Labs](https://node.securitylabs.xyz/)]
+[Security Labs](https://node.securitylabs.xyz/) is shaping the key management abstraction scene by building a protocol providing
 
 - An actively cryptographically-verified mixing service (as in mixnets, which are compatible with current Tor nodes),
 - a Decentralized storage procedure for backing up private keys in a security-centric simple way, and
