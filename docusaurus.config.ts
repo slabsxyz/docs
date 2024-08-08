@@ -57,7 +57,7 @@ const config: Config = {
       logo: {
         alt: 'My Site Logo',
         // src: 'img/logo.svg',
-        src: 'img/functor_logo.jpg',
+        src: 'img/functor_logo.png',
       },
       items: [
         {
