@@ -6,7 +6,7 @@ const config: Config = {
   title: 'Security Labs',
   tagline: 'Key Management for Chain Abstraction',
   // favicon: 'img/logo.svg',
-  favicon: 'img/functor_logo.jpg',
+  favicon: 'img/functor_logo.png',
   url: 'https://docs.securitylabs.xyz',
   baseUrl: '/',
   organizationName: 'slabsxyz', // Usually your GitHub org/user name.
@@ -57,7 +57,7 @@ const config: Config = {
       logo: {
         alt: 'My Site Logo',
         // src: 'img/logo.svg',
-        src: 'img/functor_logo.jpg',
+        src: 'img/functor_logo.png',
       },
       items: [
         {
