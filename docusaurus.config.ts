@@ -5,7 +5,6 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'Security Labs',
   tagline: 'Key Management for Chain Abstraction',
-  // favicon: 'img/logo.svg',
   favicon: 'img/functor_logo.png',
   url: 'https://docs.securitylabs.xyz',
   baseUrl: '/',
@@ -56,7 +55,6 @@ const config: Config = {
       title: 'Functor Network Docs',
       logo: {
         alt: 'My Site Logo',
-        // src: 'img/logo.svg',
         src: 'img/functor_logo.png',
       },
       items: [
