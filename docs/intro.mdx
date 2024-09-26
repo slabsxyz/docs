@@ -1,4 +1,5 @@
 ---
+title: Intro to Functor
 sidebar_position: 1
 slug: /
 ---
@@ -7,9 +8,17 @@ slug: /
   <meta prefix="og: http://ogp.me/ns#" />
 </Head>
 
-# What is Functor Network?
+## What is Functor Network?
 
-**Functor Network** by [Security Labs](https://node.securitylabs.xyz/) is a **unified access layer for the autonomous world**. Two of the fastest-growing technological fronts today, artificial intelligence (AI) and cryptography, are two faces of the same future: A future where most human activity can be enhanced **securely** and **expressively** through technology. 
+**Functor Network** by [Security Labs](https://node.securitylabs.xyz/), at its core, is a **minimal keystore (KS) network**. 
+
+A **minimal keystore layer** is a cross-chain [key/value store](/concepts/glossary/#key-value-store) for smart wallet keys, [session keys](/concepts/glossary/#session-key) and other configurations. It is **minimal** in the sense that its nodes need only to manage this simple [key/value database](/concepts/glossary/#key-value-store), and not balances nor smart contracts. This has the following simple consequences:
+
+- **Nodes are [lightweight](/concepts/glossary/#light-node)**: By the principle of [modular blockchains](/concepts/glossary/#modular-blockchain), responsibilities of [consensus](/concepts/glossary/#consensus-client), [data availability](/concepts/glossary/#data-availability) and [execution](/concepts/glossary/#execution-client) are <u>separated</u> and more <u>specialized nodes are lightweight</u> in the sense of being runnable from lightweight devices such as raspberry pis, mobile apps and web browser extensions. Specifically, the [execution](/concepts/glossary/#execution-client) part of the nodes is far simpler for a keystore.
+
+- **Its simple state is readable from everywhere**: Since Functor's goal is for wallet configuration to be accessible agnostic to the chain, Functor nodes work more of 
+
+In practice, **Functor Network** acts as a **unified access layer for the autonomous world**. Two of the fastest-growing technological fronts today, artificial intelligence (AI) and cryptography, are two faces of the same future: A future where most human activity can be enhanced **securely** and **expressively** through technology. 
 
 **Functor Network** is the access layer that enable **dApps**, **AI agents** and other **decentralized systems** to <u>*securely interact, plan and interoperate in a cross-chain manner.*</u>
 
@@ -17,7 +26,7 @@ slug: /
 [Security Labs](https://node.securitylabs.xyz/) is shaping the key management abstraction scene by building Functor Network and a set of standards to bridge the gap between artificial intelligence and blockchain technologies with the aim of securely achieve the chain abstracted future.
 :::
 
-## A bit of motivation
+### A bit of motivation
 
 On one side, artificial intelligence, specially [generative AI](https://en.wikipedia.org/wiki/Generative_artificial_intelligence) such as [LLMs](https://en.wikipedia.org/wiki/Large_language_model) for interfacing with human natural language, and [generative art models](https://en.wikipedia.org/wiki/Artificial_intelligence_art)[^1] to produce a wide range of expressive outcomes, have shown its ability to capture people's requests and produce useful, creative outputs.
 
@@ -30,7 +39,7 @@ To allow **on-chain AI agents** (i.e. AI that are able to have on-chain activiti
 - AI agents' actions need to be regulated with granular permissions. i.e. they can't have full permissions over our assets.
 - AI agents need to be able to interact with dApps just as humans would, but in a verifiable way, i.e. each on-chain action (e.g. transaction) should be verified according to an expected, **commited** behavior.
 
-## Enter Functor[^2]: A Summary of features
+### Enter Functor[^2]: A Summary of features
 
 [^2]: The mathematically inclined reader might be already relating the mathematical concept of a [functor](https://en.wikipedia.org/wiki/Functor) with our solution. *We bridge the gap between the category of AIs and of decentralized systems*.
 
@@ -42,11 +51,11 @@ Furthermore, Functor Network enrich **intents engines** — systems where users 
 
 AI agents, powered by **session keys** and intents, can autonomously manage assets, execute transactions, and operate across multiple blockchains, offering **cost-effective**, **secure**, and **fast** automation solutions.
 
-# Why Functor Network?
+## Why Functor Network?
 
 dApps' and AI agents' interoperability (between them and between each other) is a critical piece for chain abstraction to exist. There are at least the following evident issues with current blockchain landscape:
 
-## Current Challenges:
+### Current Challenges:
 
 - **Chain fragmentation:** Simply put: Assets on different chains can't easily interact (bridges aren't a totally secure nor atomic solution), and dApps defined over specific chains can't guaratee their state, intention and permissions to dApps on other blockchains, making cooperation hard and fundamentally insecure.
 
@@ -54,7 +63,7 @@ dApps' and AI agents' interoperability (between them and between each other) is 
 
 - **Complex User Experience**: Managing multiple wallets, keys, and dApp permissions is often cumbersome for users, and the complexity slows down adoption and interaction with web3 technologies.
 
-## How Functor Network Solves These Problems:
+### How Functor Network Solves These Problems:
 
 - **Chain fragmentation:** Chain de-fragmentation does not necessarily requires message passing between chains. The issue can be more directly and ellegantly solved by just allowing **atomic cryptographic guarantees across chains**, i.e. allowing dApps to be sure that the state across multiple chains, and the action of their peers (other dApps, possibly on other chains, and AI agents) is as they predict in order to cooperate. This is solved by Functor's **multi-chain sessions**.
 
@@ -62,7 +71,7 @@ dApps' and AI agents' interoperability (between them and between each other) is 
 
 - **Complex User Experience**: Complex asset management need not to ever happen again if all of user's assets and operations are effectively managed on a "single abstract blockchain". This dream is closer thanks to balance abstracion solutions (e.g. [this](https://ethresear.ch/t/magicspend-spend-now-debit-later/19678)), [account abstraction](https://eips.ethereum.org/EIPS/eip-4337) and session keys allowing easy and secure interface to assets in a multi-chain fashion. Functor contributes to this through its keystore's ability to sync atomically credentials across multiple wallets, no matter the chain in which they are deployed. 
 
-# How Does Functor Network Work?
+## How Does Functor Network Work?
 
 1. **Credential and Permission Synchronization**: Public credentials and session keys are stored in Functor Network’s keystore and are synchronized across multiple blockchains in a secure and verifiable manner, allowing dApps to read and utilize the state of permissions directly from the keystore.
    
@@ -72,7 +81,7 @@ dApps' and AI agents' interoperability (between them and between each other) is 
 
 4. **Intents Engines**: Functor Network supports the development of **intents engines**—smart systems capable of interpreting user desires and autonomously determining the series of on-chain actions needed to fulfill those desires. This drastically reduces complexity and enhances user experience, as users can express their goals in natural language while AI agents and intents engines handle the on-chain details.
 
-# Who Can Use Functor Network?
+## Who Can Use Functor Network?
 
 1. **AI Agents and Autonomous Systems**:
    - AI agents benefit from Functor Network’s support of **session keys** and **intents engines** to autonomously execute transactions and manage assets across multiple chains, ensuring secure and efficient operations.

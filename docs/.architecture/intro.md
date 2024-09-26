@@ -7,6 +7,9 @@ customIcon: fa-solid fa-brain
 
 **Key Management Abstraction (KMA)** removes the <u>complexities</u> for users to <u>manage</u> (store, backup/retrieve, rotate, import/export, etc.) private keys in a <u>secure</u> way. The kind of complexities and what security exactly means is discussed as follows:
 
+functor_keystore_architecture
+![Example banner](/img/functor_keystore_architecture.png)
+
 ## Complexities to remove
 Let's first understand how, and in how many layers, is key management complex, achieving at the end a specific definition for key management as we understand it for our solution.
 
