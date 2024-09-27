@@ -6,6 +6,9 @@ customIcon: fa-solid fa-brain
 
 <!-- # Key Management Abstraction -->
 
+### Atomic Transaction
+An **atomic transaction** in the context of blockchain is a transaction composed of multiple interdependent actions, potentially across different chains or involving various smart contracts, that either executes in its entirety or is fully reverted. This ensures that no partial state changes occur, preserving the system's consistency. A key example of atomic transactions is **atomic swaps**, where tokenized assets are exchanged between different blockchains without third-party intermediaries. Atomic swaps leverage cryptographic mechanisms like Hash Timelock Contracts (HTLCs) to ensure that the swap is completed fully or canceled, maintaining decentralization and preventing any party from being shortchanged.
+
 ### Consensus Client
 A **consensus client** in a blockchain node implements the network's consensus mechanism, ensuring that the blockchain reaches agreement on valid data by verifying the information provided by the execution client. It enables nodes to synchronize and maintain the correct blockchain state across the network.
 
@@ -34,6 +37,10 @@ A **modular blockchain** is a blockchain architecture that separates core functi
 
 ### Session Key
 A **session key** in Web3 is a temporary, limited-permission credential that allows users or AI agents to perform specific transactions or actions on behalf of a primary account without requiring repeated wallet authentications. It consists of a signing key and a configuration that defines its permissions, such as asset usage, transaction limits, and expiration, enabling seamless interaction with decentralized applications while maintaining security.
+
+### Force Inclusion
+**Force inclusion** is a mechanism in blockchain systems that allows users to bypass a malfunctioning or unresponsive Sequencer and ensure their transaction is included in the blockchain. After a predefined delay, any user can move their pending transaction from a secondary queue (like the delayed inbox) to the primary state-processing queue (the core inbox), ensuring censorship resistance and trustless inclusion even when the Sequencer fails to perform its duties.
+
 
 <!-- **Key Management Abstraction (KMA)** removes the <u>complexities</u> for users to <u>manage</u> (store, backup/retrieve, rotate, import/export, etc.) private keys in a <u>secure</u> way. The kind of complexities and what security exactly means is discussed as follows:
 
