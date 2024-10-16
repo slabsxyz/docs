@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.4.0">
 <title data-rh="true">Frequently Asked Questions | Security Labs</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://docs.securitylabs.xyz/img/functor_social_card.jpg"><meta data-rh="true" name="twitter:image" content="https://docs.securitylabs.xyz/img/functor_social_card.jpg"><meta data-rh="true" property="og:url" content="https://docs.securitylabs.xyz/faqs/"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Frequently Asked Questions | Security Labs"><meta data-rh="true" name="description" content="Core technology related"><meta data-rh="true" property="og:description" content="Core technology related"><link data-rh="true" rel="icon" href="/img/functor_logo.png"><link data-rh="true" rel="canonical" href="https://docs.securitylabs.xyz/faqs/"><link data-rh="true" rel="alternate" href="https://docs.securitylabs.xyz/faqs/" hreflang="en"><link data-rh="true" rel="alternate" href="https://docs.securitylabs.xyz/faqs/" hreflang="x-default"><link rel="stylesheet" href="/assets/css/styles.62a3de07.css">
-<script src="/assets/js/runtime~main.41136658.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.82c9b6f7.js" defer="defer"></script>
 <script src="/assets/js/main.b165e5bb.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -21,10 +21,12 @@
 <ul>
 <li>
 <p><strong>What are the components of a keystore rollup, specifically for Functor?</strong></p>
-<p>At a high level, it has:
-• <strong>Nodes</strong>: Full nodes (execution clients), light nodes, data availability node, etc.
-• <strong>Infrastructure Smart contracts</strong>: Contracts for state settlement such as Keystore contracts on the L1 and every L2, keeping the state of Functor accessible. Also, <strong>smart account interfaces</strong> for <em>anyone to inherit</em> the ability to use Functor inside their own smart contract design.
-• <strong>Network components</strong>: Sequencing layer, calling interfaces (RPC providers, explorers, etc.), ZK provers layer.</p>
+<p>At a high level, it has:</p>
+<ul>
+<li><strong>Nodes</strong>: Full nodes (execution clients), light nodes, data availability node, etc.</li>
+<li><strong>Infrastructure Smart contracts</strong>: Contracts for state settlement such as Keystore contracts on the L1 and every L2, keeping the state of Functor accessible. Also, <strong>smart account interfaces</strong> for <em>anyone to inherit</em> the ability to use Functor inside their own smart contract design.</li>
+<li><strong>Network components</strong>: Sequencing layer, calling interfaces (RPC providers, explorers, etc.), ZK provers layer.</li>
+</ul>
 </li>
 </ul>
 <hr>
@@ -46,9 +48,11 @@
 <ul>
 <li>
 <p><strong>Give me more details on how the keystore contracts work.</strong></p>
-<p>Keystore contracts keep the state of Functor verifiable across any L2 and their underlying L1 as a <strong>merkle tree root</strong>. There are two kinds:
-• <strong>L1 keystore contract</strong>: Functor’s consensus settles the merkle tree root here. From here it is propagated to every L2 with a L2 keystore contract.
-• <strong>L2 keystore contracts</strong>: Every L2 that wants to store smart contract wallet’s configurations in Functor requires to at least have this contract. It allows their bundlers to verify transactions against Functor’s state root.</p>
+<p>Keystore contracts keep the state of Functor verifiable across any L2 and their underlying L1 as a <strong>merkle tree root</strong>. There are two kinds:</p>
+<ul>
+<li><strong>L1 keystore contract</strong>: Functor’s consensus settles the merkle tree root here. From here it is propagated to every L2 with a L2 keystore contract.</li>
+<li><strong>L2 keystore contracts</strong>: Every L2 that wants to store smart contract wallet’s configurations in Functor requires to at least have this contract. It allows their bundlers to verify transactions against Functor’s state root.</li>
+</ul>
 </li>
 </ul>
 <hr>
@@ -56,9 +60,11 @@
 <ul>
 <li>
 <p><strong>What exactly are session keys?</strong></p>
-<p>Session keys have two parts:
-• <strong>Signing key</strong>, used to sign transactions just as any key.
-• <strong>Session configuration</strong>, describing permission scope and session expiration conditions. This is stored in Functor to be cheaply updateable and readable as a single source of truth from any L2.</p>
+<p>Session keys have two parts:</p>
+<ul>
+<li><strong>Signing key</strong>, used to sign transactions just as any key.</li>
+<li><strong>Session configuration</strong>, describing permission scope and session expiration conditions. This is stored in Functor to be cheaply updateable and readable as a single source of truth from any L2.</li>
+</ul>
 </li>
 </ul>
 <hr>
@@ -80,7 +86,7 @@
 <ul>
 <li>
 <p><strong>How are session keys used through Functor Network?</strong></p>
-<p>Once the session configuration is in Functor, <a href="https://eips.ethereum.org/EIPS/eip-4337#useroperation" target="_blank" rel="noopener noreferrer"><code>userOp</code>s</a> sent to any L2 (where our keystore contract lies) can verify their validity against the conditions described in such configuration. This is done by checking the configuration is contained and valid in the current state of Functor, verified permissionlessly through the Keystore contract. At a more technical level, Functor’s state is a special kind of merkle tree and the proof being validated is a Merkle proof framed as a SNARK to be cheaply verified on-chain.</p>
+<p>Once the session configuration is in Functor, <a href="https://eips.ethereum.org/EIPS/eip-4337#useroperation" target="_blank" rel="noopener noreferrer"><code>userOperation</code>s</a> sent to any L2 (where our keystore contract lies) can verify their validity against the conditions described in such configuration. This is done by checking the configuration is contained and valid in the current state of Functor, verified permissionlessly through the Keystore contract. At a more technical level, Functor’s state is a special kind of merkle tree and the proof being validated is a Merkle proof framed as a SNARK to be cheaply verified on-chain.</p>
 </li>
 </ul>
 <hr>
@@ -88,14 +94,14 @@
 <li>
 <p><strong>Can you show the session usage in a diagram?</strong></p>
 <p>For sure!</p>
-<p><img decoding="async" loading="lazy" src="https://prod-files-secure.s3.us-west-2.amazonaws.com/6b264c65-dcfb-4929-9617-32767b60ed3f/188fe2cc-0e11-4891-b5ac-c5976b877e43/image.png" alt="image.png" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="session_usage" src="/assets/images/session_usage-1b80126dea27d635104ae05cbbf994a5.png" width="961" height="546" class="img_ev3q"></p>
 <p>We have the following steps:</p>
 <ol>
 <li>
 <p>The signing key holder proves the corresponding configuration exists in Functor (Merkle proof framed as a SNARK for cheap on-chain verification).</p>
 </li>
 <li>
-<p>A userOperation is produced and signed, containing the proof and the transaction logic itself.</p>
+<p>A <code>userOperation</code> is produced and signed, containing the proof and the transaction logic itself.</p>
 </li>
 <li>
 <p>Proof is validated by the Bundler before executing. Proof will be valid only if these three conditions are true:</p>
@@ -121,7 +127,7 @@ c. The Merkle proof correspond with the state root stored in the Keystore Contra
 <li>
 <p><strong>What kind of permissions can be described on a session?</strong></p>
 <p>The short answer is: Any kind of permission — bounds to asset expenditures, smart contract calls with constraint arguments, conditional logic with off-chain data, etc.</p>
-<p>At a technical level, though, this is not a trivial problem to solve <em><strong>efficiently</strong></em> for all cases. The simplest kind of permissions such as bounded asset expenditure are not an issue, since they can be included in the merkle proof during the <code>userOp</code> creation since all verification parameters are present in Functor already. On other hand, more complex permissions might ask for off-chain oracles’ data, data on other chains, or just be too complex to efficiently include during the formation of the <code>userOp</code>. This is another reason to aim for complexity through <strong>session composition</strong> instead of a single complex permission scope.</p>
+<p>At a technical level, though, this is not a trivial problem to solve <em><strong>efficiently</strong></em> for all cases. The simplest kind of permissions such as bounded asset expenditure are not an issue, since they can be included in the merkle proof during the <code>userOperation</code> creation since all verification parameters are present in Functor already. On other hand, more complex permissions might ask for off-chain oracles’ data, data on other chains, or just be too complex to efficiently include during the formation of the <code>userOperation</code>. This is another reason to aim for complexity through <strong>session composition</strong> instead of a single complex permission scope.</p>
 <p>Nevertheless, these complex permissions can always be encapsulated in a single zero-knowledge proof (ZKP), possibly composed of an aggregate of other ones. These ZKPs’ production can be further optimized by approaches such as:
 • Delegate the ZKP production to the off-chain oracles we expect data from (for the permissions to be fulfilled). These can even be posted to a single ZKP storage for multiple users depending on the same oracle to re-use them.
 • We not necessarily have too prove consistency of the transaction with the complete set of permissions, but only on the ones the transaction actually interact with.</p>
@@ -221,13 +227,17 @@ c. The Merkle proof correspond with the state root stored in the Keystore Contra
 <ul>
 <li>
 <p><strong>How does Functor compare with other Keystore rollups?</strong></p>
-<p>Functor, as a general purpose Keystore (KS) layer, shares several standard components with every KS such as:
-• Keystore contracts to store the state merkle root and keep it available for all L2s to read it.
-• Minimal smart account interface for <code>userOp</code> validation to read the KS.
-• Other general L2 components, etc.</p>
+<p>Functor, as a general purpose Keystore (KS) layer, shares several standard components with every KS such as:</p>
+<ul>
+<li>Keystore contracts to store the state merkle root and keep it available for all L2s to read it.</li>
+<li>Minimal smart account interface for <code>userOperation</code> validation to read the KS.</li>
+<li>Other general L2 components, etc.</li>
+</ul>
 <p>Nevertheless, Functor is pretty unique in:</p>
-<p>• Being session key first, providing features such as session composition, arbitrary kind of permissions and a higher performance in proof production for session keys.
-• Specializing for the AI agents use case by design, while keeping it general. We recognize a bright future in the intersection between Web3 and AI, and concluded immensely valuable to optimize our execution client to manage AI agent collaboration through session composition and also a possibly high number of concurrent sessions defined over a single wallet, scaling our zk proofs through proof aggregations and recursive proofs.</p>
+<ul>
+<li>Being session key first, providing features such as session composition, arbitrary kind of permissions and a higher performance in proof production for session keys.</li>
+<li>Specializing for the AI agents use case by design, while keeping it general. We recognize a bright future in the intersection between Web3 and AI, and concluded immensely valuable to optimize our execution client to manage AI agent collaboration through session composition and also a possibly high number of concurrent sessions defined over a single wallet, scaling our zk proofs through proof aggregations and recursive proofs.</li>
+</ul>
 </li>
 </ul>
 <hr>
