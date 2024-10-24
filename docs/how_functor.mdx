@@ -1,0 +1,43 @@
+---
+title: How is Functor enabling the on-chain autonomous world?
+sidebar_position: 3
+---
+
+<Head>
+  <meta prefix="og: http://ogp.me/ns#" />
+</Head>
+
+The **on-chain autonomous world** refers to the future in which AI agents automatize complex data-hungry processes on-chain in a secure and verifiably way; which has the obstacles described on the [previous section](/why_functor).
+
+At a high level, all an AI-agent is doing is:
+
+1. **Reading** some data
+2. Acting on a system, **changing** its state
+3. New data is **produced** from changed state
+
+![AI agent](/img/ai_agent.png)
+
+All of this with some objective, sometimes as simple as buying a token at some price (need to act only once) or to maintain a portfolio in optimum market performance (which needs an ongoing agent, reading new data constantly). 
+
+**The critical piece in this process is when AI agent changes the state of the blockchain**.
+
+Issue (1) of **"scheduling and automatizing transactions"** safely requires AI agents to have, not *full permissions* over a wallet, but only granular, temporary permissions. This is achieved through [**session keys**](/concepts/glossary/#session-key), which:
+
+- Gives the AI agent a **signing key** to produce transactions.
+- Gives the blockchain a **configuration** to **cryptographically verify** transactions attempted by the AI over our assets. Solving here issue (2) of **"AI's hallucinations"**, through active on-chain verification.
+
+This configuration file must be **cross-chain** in order to also solve issue (3) of **"Fragmentation in Web3"**. Functor, as a Keystore rollup, allows these configurations to be readable in a chain-agnostic way.
+
+An example of how AI agents work with Functor sesions is as follows:
+
+![AI agent UX](/img/ai_agent_ux.png)
+
+A user or dApp can configure any agent with as much permissions as they want, during some timeframe. This AI agent will then only act as described, becoming **predictable** for the user, dApp and *— critically — other AI agents too.*
+
+AI agents being predictable, and also variably so, for other AI agents allow them to collaborate in a safe manner; making them **composable**. Consider the following example:
+
+![Multi agent session](/img/multi_agent_session.png)
+
+To assets, **A1** and **A2**, are being used by independent AI agents, possibly on different chains, and reading different data they don't need to be sharing. 
+
+A third session configurating the **relationship** between **A1** and **A2** is created. This will make it so **A2** can't be used until **A1** is moved first, making it possible to force a sequential constraint over AI actions <u>without the need of cross-chain communication</u>.

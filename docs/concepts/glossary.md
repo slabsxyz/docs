@@ -24,7 +24,7 @@ An **Indexed Merkle tree** is a variant of the [Merkle Tree](/concepts/glossary/
 ### Key-value Store
 A **key-value store** is a type of database that stores data as a collection of key-value pairs, where each key is unique and maps to a specific value. It allows for efficient retrieval of values based on their associated keys, commonly used in caching and simple data retrieval scenarios.
 
-In the case of a keystore network, this is structured as a [Merkle Tree](/concepts/glossary/#merkle-tree). Specifically, an [Indexed Merkle Tree](/concepts/glossary/#indexed-merkle-tree), which optimizes for its access purpose.
+In the case of a keystore rollup, this is structured as a [Merkle Tree](/concepts/glossary/#merkle-tree). Specifically, an [Indexed Merkle Tree](/concepts/glossary/#indexed-merkle-tree), which optimizes for its access purpose.
 
 ### Light Node
 A **light node** is a type of blockchain node that only downloads and verifies block headers rather than the full blockchain, allowing it to operate with minimal resource requirements. By requesting additional data from full nodes (or its modular components such as [data availability](/concepts/glossary/#data-availability) layer) when needed and verifying it against the block headers, light nodes provide access to the blockchain's functionality and security guarantees without the need for powerful hardware, making them suitable for lightweight devices and specialized networks like keystores.
@@ -34,6 +34,9 @@ A **Merkle tree** is a cryptographic data structure that organizes data into a t
 
 ### Modular Blockchain
 A **modular blockchain** is a blockchain architecture that separates core functions such as execution, consensus, and data availability into specialized layers, allowing each layer to focus on one or more specific tasks. This modular approach enhances scalability, flexibility, and efficiency by enabling different blockchains to collaborate and optimize for specific roles, rather than handling all functions within a single, monolithic chain.
+
+### Restaking  
+**Restaking** is a process where staked assets are reused to secure additional protocols or networks, enabling the same capital to generate multiple streams of rewards. This enhances capital efficiency by allowing staked assets to participate in various decentralized finance (DeFi) operations without requiring further investment or unstaking the original assets.
 
 ### Session Key
 A **session key** in Web3 is a temporary, limited-permission credential that allows users or AI agents to perform specific transactions or actions on behalf of a primary account without requiring repeated wallet authentications. It consists of a signing key and a configuration that defines its permissions, such as asset usage, transaction limits, and expiration, enabling seamless interaction with decentralized applications while maintaining security.

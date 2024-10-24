@@ -1,0 +1,251 @@
+---
+title: Frequently Asked Questions
+sidebar_position: 7
+---
+
+<Head>
+  <meta prefix="og: http://ogp.me/ns#" />
+</Head>
+
+## Keystore related
+
+### **What is a keystore rollup?**
+    
+    A [**minimal keystore rollup**](https://docs.securitylabs.xyz/) is a cross-chain [key/value store](https://docs.securitylabs.xyz/concepts/glossary/#key-value-store) for smart wallet configurations such as [session keys](https://docs.securitylabs.xyz/concepts/glossary/#session-key) and public keys. It is **minimal** in that its nodes need only to manage this simple [key/value database](https://docs.securitylabs.xyz/concepts/glossary/#key-value-store), and not balances nor smart contracts. This makes our nodes lightweight and easy to run on computationally-constrained environment, making it possible to run light nodes even on web browsers.
+    
+
+---
+
+### **What are the components of a keystore rollup, specifically for Functor?**
+    
+    At a high level, it has:
+    - **Nodes**: Full nodes (execution clients), light nodes, data availability node, etc.
+    - **Infrastructure Smart contracts**: Contracts for state settlement such as Keystore contracts on the L1 and every L2, keeping the state of Functor accessible. Also, **smart account interfaces** for *anyone to inherit* the ability to use Functor inside their own smart contract design.
+    - **Network components**: Sequencing layer, calling interfaces (RPC providers, explorers, etc.), ZK provers layer.
+    
+
+---
+
+### **What exactly is a light node in Functor?**
+    
+    [‘Light node’](https://docs.securitylabs.xyz/concepts/glossary/#light-node) (also commonly known as ‘light client’) is a standard term for nodes which only download a small portion of the data in a blockchain, and use indirect means to verify that a given chain is valid. As described on [this classical paper](https://arxiv.org/pdf/1809.09044), these help scale the availability, security and performance of any blockchain. These light nodes, by being less technologically demanding, are easier to run on computationally-constrained environments such as IoT devices and web browsers. 
+    
+
+---
+
+### **Why is it valuable for nodes to be lightweight?**
+    
+    To fulfill our aim: Allow easy access to every user to also become a Functor node if they so desire. This not only increases our security and performance, but also their user experience by having access to part of Functor state, allowing for pre-computing and cheaper configuration (authentication, session, etc.) updates.
+    
+    It is additionally worthy to note that **every** node in Functor network is lightweight in a more general sense: Consensus, data availability and execution layers are decoupled; meaning a node works by running only its [execution client](https://docs.securitylabs.xyz/concepts/glossary/#execution-client) while other components of the system work independently. Since Functor’s execution client is small by design (simplicity = more security), nodes are run on environment with more limited computational resources. 
+    
+
+---
+
+### **Give me more details on how the keystore contracts work.**
+    
+    Keystore contracts keep the state of Functor verifiable across any L2 and their underlying L1 as a **merkle tree root**. There are two kinds:
+    - **L1 keystore contract**: Functor’s consensus settles the merkle tree root here. From here it is propagated to every L2 with a L2 keystore contract.
+    - **L2 keystore contracts**: Every L2 that wants to store smart contract wallet’s configurations in Functor requires to at least have this contract. It allows their bundlers to verify transactions against Functor’s state root.
+    
+
+---
+
+## Session keys related
+
+### **What exactly are session keys?**
+    
+    Session keys have two parts:
+    - **Signing key**, used to sign transactions just as any key. 
+    - **Session configuration**, describing permission scope and session expiration conditions. This is stored in Functor to be cheaply updateable and readable as a single source of truth from any L2.
+    
+
+---
+
+### **What do I need to create a session key?**
+    
+    In practice, any authentication factor our zk-circuits support. Currently being any passkey compatible authentication factor, but more generally, imagine MFA and/or threshold signatures schemes for the future. 
+    
+
+---
+
+### **Okay but, I am a real nerd. *exactly how* are sessions created from my authentication?**
+    
+    **More in-depth**: Sessions keys are **deterministically associated with smart contract account (SCA)**. Thanks to [CREATE2](https://www.evm.codes/?fork=cancun#f5) offering a deterministic way of having the same address across every chain, a well-defined relationship between SCAs and all its sessions can be established in Functor even if said SCAs haven’t been deployed in all L2s. 
+    
+    This implies updates on the session configurations and new sessions need only to ask for authentication from the SCA’s owner, this being anything they want to use as long as Functor’s validators can verify it. Our verification process is based on zero-knowledge proofs, agnostic to proof systems. Authentication circuits for different and increasingly more general authentication schemes are being built, prioritizing the ones with good UX such as Webauthn for Passkeys.
+    
+
+---
+
+### **How are session keys used through Functor Network?**
+    
+    Once the session configuration is in Functor, [`userOperation`s](https://eips.ethereum.org/EIPS/eip-4337#useroperation) sent to any L2 (where our keystore contract lies) can verify their validity against the conditions described in such configuration. This is done by checking the configuration is contained and valid in the current state of Functor, verified permissionlessly through the Keystore contract. At a more technical level, Functor’s state is a special kind of merkle tree and the proof being validated is a Merkle proof framed as a SNARK to be cheaply verified on-chain.
+    
+
+---
+
+### **Can you show the session usage in a diagram?**
+    
+    For sure!
+    
+    ![session_usage](/img/session_usage.png)
+    
+    We have the following steps: 
+    1) The signing key holder proves the corresponding configuration exists in Functor (Merkle proof framed as a SNARK for cheap on-chain verification).
+    2) A `userOperation` is produced and signed, containing the proof and the transaction logic itself. 
+    
+    3) Proof is validated by the Bundler before executing. Proof will be valid only if these three conditions are true:
+    
+        a. Transaction logic is within the permission’s scope.
+        b. Expiration condition hasn’t occurred. 
+        c. The Merkle proof correspond with the state root stored in the Keystore Contract
+    
+
+---
+
+### **Do you have any performance bottlenecks?**
+    
+    Not really, Merkle proofs are fast to validate:
+    • It is highly optimized for our data structure (key-value pairs with [RLP-encodable](https://ethereum.org/en/developers/docs/data-structures-and-encoding/rlp/) values). 
+    • It depends on merkle siblings of the current state of Functor, which can be cached across CDNs, on data availability layers and/or on an outsourced prover’s device.
+    • If user is running Functor’s lightnode themselves, it can be pre-computed.
+    
+
+---
+
+### **What kind of permissions can be described on a session?**
+    
+    The short answer is: Any kind of permission — bounds to asset expenditures, smart contract calls with constraint arguments, conditional logic with off-chain data, etc.
+    
+    At a technical level, though, this is not a trivial problem to solve ***efficiently*** for all cases. The simplest kind of permissions such as bounded asset expenditure are not an issue, since they can be included in the merkle proof during the `userOperation` creation since all verification parameters are present in Functor already. On other hand, more complex permissions might ask for off-chain oracles’ data, data on other chains, or just be too complex to efficiently include during the formation of the `userOperation`. This is another reason to aim for complexity through **session composition** instead of a single complex permission scope.
+    
+    Nevertheless, these complex permissions can always be encapsulated in a single zero-knowledge proof (ZKP), possibly composed of an aggregate of other ones. These ZKPs’ production can be further optimized by approaches such as:
+    • Delegate the ZKP production to the off-chain oracles we expect data from (for the permissions to be fulfilled). These can even be posted to a single ZKP storage for multiple users depending on the same oracle to re-use them.
+    • We not necessarily have too prove consistency of the transaction with the complete set of permissions, but only on the ones the transaction actually interact with.
+    
+
+---
+
+### **Help! Session was wrong, how can I delete it?**
+    
+    Sessions are designed to require an expiration condition, simply a date or a more complex dependency of off-chain and on-chain variables. This means you can be safe your session will expire eventually, being secure by default. Nevertheless, if there was something deeply unsafe about the permissions given or a powerful signing key was compromised, forcefully deleting a session key is easy:  Updating it with an empty session associated with said signing key, using the same authentication factors originally used.
+    
+
+---
+
+### **What is session composition?**
+    
+    Certain use cases require session keys with broader permissions; however, optimal security is achieved when scopes are small and simple. **Session composition** enables independent sessions to combine and  constraint their permissions with each other’s, allowing users to define complex on-chain behaviors without granting excessive permissions to a single key: Security through simplicity, complexity through composition.
+    
+
+---
+
+### **So, is Functor all about storing session configurations?**
+    
+    No! It is much more!
+    
+    Although session keys is an attractive and really general use case for a keystore rollup, Functor is still a **general purpose keystore**. This means we store any configuration and parameters users might want to use to customize their smart accounts and synchronize them across chains. After [Pectra](https://eip.tools/eip/7600) hardfork, complete upgradeability from EOA to Smart Accounts will be possible and EOAs can be a thing of the past. This means, Functor serves to glue the account abstracted future across the fragmented L2 world. 
+    
+
+---
+
+### **Web3 is moving forward to chain abstraction and an intent-centric experience. How does Functor relate with intents?**
+    
+    Intent engines ultimately do two things:
+    
+    1. Produce a sequence of transactions that achieves a desired on-chain outcome
+    2. Asks the user to sign a final end-to-end set of transactions to execute the intent.
+    
+    Functor enhances and intertwines with both. For the second one, intents approval can be simplified greatly and even automated by creating a session able to initialize and approve certain types of intents within the session constraints. For the first, we allow intent engines to consider collaboration between AI agents associated with a given Smart Contract Account, so that the solver can propose richer transaction paths.
+    
+
+---
+
+## Market related
+
+### **What value is Functor adding to the key management space?**
+    
+    Following the [Pectra hardfork](https://eip.tools/eip/7600), key management evolves from ‘protecting a private key’ to allowing users unlimited customization of their accounts through Smart Contract Accounts (SCA). This is untapping even bigger markets for Web3 such as on-chain AI agents. 
+    
+    Nevertheless, one core issue is that this unlimited customization power is still fragmented across chains, i.e. users need to manage independent wallets on each chain. Keystore rollups solve this, by offering a single source of truth for accounts configurations. 
+    
+    Moreover, for the specific AI agents use-case, Functor specializes in a specific kind of configuration: Session keys. This allows AI agents controlled and temporary access to our assets, mitigating risks of automatizing our on-chain future.
+    
+
+---
+
+### **What can an AI agent providers achieve by partnering?**
+    
+    Functor allows users to limit and customize AI agents' access to their assets. This is done through a session key, living in Functor (making it cross-chain accessible), expressing permissions scope and expiration condition. Additionally, simple and case-specific AI agents can collaborate with each other through **session composition**.
+    
+
+---
+
+### **What market validation have you received for the AI agent’s use case?**
+    
+    From our discussions with various AI agent projects, we’ve identified several recurring concerns with existing solutions:
+    
+    - Cost: Prices are too high or not suitable for the scale they operate on.
+    - Performance: Current options are often too slow.
+    - Trust: There’s a general lack of trust in the security and reliability of many available solutions.
+    
+    When it comes to building their own solution, the feedback has been consistent:
+    
+    - Risk: too risky, liabilities related with handling private keys or having to develop a solution that’s outside their focus.
+    - Cost: The high cost of development, both in terms of time and money, is a major deterrent.
+    - Specialization: They prefer to focus on their AI Agent efforts instead of assuming a task that can be delegated.
+
+---
+
+### **What are some specific use cases for cross-chain sessions and session composition?**
+    
+    Session keys by themselves unlock lots of use cases, but here are three around the cross-chain and composition properties:
+    
+    - **DeFi portfolio with cross-chain liquidity**:
+        
+        By allowing a session key to bridge when bridging prices are within some range (and potentially other on-chain and off-chain data), complex trades can be achieved even when bridging is necessary. This could be made secure through session composition: Different keys allow restrictive permissions on each chain, and a different one for each bridge, with independent conditions. This setup allows for portfolio rebalancing and optimization of staking & yield.
+        
+    - **Cross-play in decentralized Gaming**:
+        
+        Resources belonging to different decentralized games, even across chains, can be securely correlated through a session. This allows activity in one game to affect any number of other games in complex ways only limited by the composition setup relating the sessions. 
+        
+    - **Automatic voting delegation in DAOs**:
+        
+        From simple setups such as “Allow person A to vote on my behalf every Friday” to much more complex ones as “Allow voting from this combination of wallets only when proposal contains X and market metric is within Y”. Aligning sessions with our beliefs simplify participation in parts of the ecosystem we care the most.
+        
+
+---
+
+### **How does Functor compare with other Keystore rollups?**
+    
+    Functor, as a general purpose Keystore (KS) layer, shares several standard components with every KS such as:
+    - Keystore contracts to store the state merkle root and keep it available for all L2s to read it.
+    - Minimal smart account interface for `userOperation` validation to read the KS.
+    - Other general L2 components, etc.
+    
+    Nevertheless, Functor is pretty unique in:
+    
+    - Being session key first, providing features such as session composition, arbitrary kind of permissions and a higher performance in proof production for session keys.
+    - Specializing for the AI agents use case by design, while keeping it general. We recognize a bright future in the intersection between Web3 and AI, and concluded immensely valuable to optimize our execution client to manage AI agent collaboration through session composition and also a possibly high number of concurrent sessions defined over a single wallet, scaling our zk proofs through proof aggregations and recursive proofs.
+    
+
+---
+
+### **What exactly does your traction (number of light nodes) actually mean?**
+    
+    Since Functor nodes are lightweight by design, we are in constant development of ways to run them seamlessly in computationally constraint-environment such as browser (through our chrome extension). This first wave of node users offer us a practical environment to experiment with our technology as we scale. 
+    
+    In that sense, our traction mean two things:
+    • User’s interest and willingness on being a node through a web browser. This shows market penetration and user adoption for the project.
+    • The initial scale at which our execution layer is expected to work.
+    
+
+---
+
+### **How do Functor Network’s tokenomics work?**
+    
+    Functor Network operates as a minimal keystore L2, where users pay gas fees in the native token of the chain they are interacting with. These gas fees compensate node operators for storing and managing session keys. The work done by nodes is rolled-up periodically and paid on Ethereum mainnet, ensuring network stability and sustained operations.
+    
+
+---

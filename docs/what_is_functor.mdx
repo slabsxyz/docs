@@ -1,0 +1,74 @@
+---
+title: What is Functor Network?
+sidebar_position: 1
+---
+
+<Head>
+  <meta prefix="og: http://ogp.me/ns#" />
+</Head>
+
+# What is Functor[^1] Network?
+
+[^1]: The mathematically inclined reader might be already relating the mathematical concept of a [functor](https://en.wikipedia.org/wiki/Functor) with our solution. *We bridge the gap between the category of AIs and of decentralized systems*.
+
+**Functor Network** by [Security Labs](https://node.securitylabs.xyz/), at its core, is a **keystore (KS) rollup**. 
+
+<!-- :::info[Who is [Security Labs](https://node.securitylabs.xyz/)]
+[Security Labs](https://node.securitylabs.xyz/) is shaping the key management abstraction scene by building Functor Network and a set of standards to bridge the gap between artificial intelligence and blockchain technologies with the aim of securely achieve the chain abstracted future.
+::: -->
+
+A **minimal keystore rollup** is a cross-chain [key/value store](/concepts/glossary/#key-value-store) for smart wallet keys, [session keys](/concepts/glossary/#session-key) and other configurations. It is **minimal** in that its nodes need only to manage this simple [key/value database](/concepts/glossary/#key-value-store), and not balances nor smart contracts. This has the following simple consequences:
+
+- **Nodes are [lightweight](/concepts/glossary/#light-node)**: This means they can be run in lightweight devices such as raspberry pis, mobile apps and web browser extensions. This is thanks to being designed as a [modular blockchain](/concepts/glossary/#modular-blockchain)[^2], as well as its [execution client](/concepts/glossary/#execution-client) being ultra-specialized to just the task of holding Smart Contract Wallet configurations and nothing more.
+
+[^2]: Where responsibilities of [consensus](/concepts/glossary/#consensus-client), [data availability](/concepts/glossary/#data-availability) and [execution](/concepts/glossary/#execution-client) are <u>separated modularly</u>.
+
+- **Its simple state is readable from everywhere**: Due to the simplicity of its state, fast updates (through zero-knowledge proofs) and verifications can be done across any L2 through syncing keystore smart contracts on each L2. For censorship-resistance, it's also possible to [force include](/concepts/glossary/#force-inclusion) directly to the keystore smart contract on the L1.
+
+
+## Going more in depth: Light Node Infrastructure
+
+Every node in a traditional blockchain has at least the following components:
+
+- **Execution client**: To process incoming transactions.
+- **Consensus client**: To settle in the correct state of the blockchain in a decentralized way
+- **State storage (i.e. data availability)**: To verify the current state of the blockchain from historic data.
+
+In [modular blockchain](/concepts/glossary/#modular-blockchain) designs, these components can be decoupled. For example, **data availability** layers such as Celestia and Eigenlayer DA exist. For **consensus**, cryptoeconomic security from other systems can be used through [restaking](/concepts/glossary/#restaking) (Eigenlayer AVS), delegating all consensus rule checking and slashing logic outside the node.
+
+This means that network nodes become much lighter and modular. As for **Functor** specifically, the **execution client** is significantly smaller too, since **transactions do not call smart contracts nor keep balances**, they just represent changes in the key-value database for sessions and wallet configurations such as **creating, invalidating and updating permissions**.
+
+Here a diagram representing the node infrastructure:
+
+![Functor Node Architecture](/img/architecture_node_only.png)
+
+The consensus client inside the node is as minimal as it needs to be just to communicate blocks, while the latest key-value database is always available (along the rest of the blocks) in the data availability layer.
+
+This allows nodes to be lightweight and run in low-end devices such as raspberry pis, mobile apps and web browser extensions.
+
+## Functor is seamlessly readable <u>cross-chain</u>
+
+Functor's state is settled on an L1 **through a keystore smart contract**, from which is synced into any L2 in a trustless way to **their own L2 keystore smart contract**. 
+
+<!-- TODO: Explain in a single section how these three types of verification work:
+- Deposit Transactions
+- Beacon Root Proofs
+- Block Hash Proofs
+ -->
+Both of these contracts keep the state root of the whole key-value database, in a [read-efficient merkle tree](/concepts/glossary/#indexed-merkle-tree) representation. This are verified for every transaction a smart contract wallet want to make, to make sure **their transaction respects the configurations they stored in Functor (sessions, authentication logic, etc.)**
+
+:::info[Verification integrity and latency]
+The state roots are verified through merkle proofs, with addition of latency-optimizing techniques such as a buffer of beacon roots on the L2 to verify block hashes against beacon root proofs. This is all done without trusting any specific sequencer, since Functor is designed as a [vanilla based rollup](https://hackmd.io/@Perseverance/rkhnAbi06), which uses L1 proposers for sequencing, being decentralized by nature.
+:::
+
+This process is better appreciated in the next diagram
+
+![Functor Architecture](/img/architecture.png)
+
+A session is created for a user (human or AI agent) who want to use specific permissions over some assets. This is done as follows:
+
+1. A transaction to Functor is sent, containing the permissions for the session key or global account being created.
+2. At the same time, either (a) the account is being deployed on however many L2s the user wants with the same deterministic address; or (b) a session signing key is produced capable of acting on permitted assets, verified on Functor.
+3. The proposed transaction is validates within a block by the consensus layer.
+3. After this batch of transactions are consented, The  key-value database is updated, and the merkle tree root is settled on the L1, as well as all data made available through a data availability layer.
+4. Finally, This state is synced to every L2 wiith a L2 Key Store contract.
