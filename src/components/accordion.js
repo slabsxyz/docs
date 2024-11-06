@@ -5,7 +5,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-export default function AccordionUsage({ header, body }) {
+export default function AccordionSection({ header, body }) {
   return (
     <div>
       <Accordion elevation={3} sx={{ borderRadius: 2, overflow: 'hidden' }}>
