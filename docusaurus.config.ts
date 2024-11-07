@@ -96,12 +96,12 @@ const config: Config = {
             //   href: 'https://stackoverflow.com/questions/tagged/docusaurus',
             // },
             // {
-            //   label: 'Discord',
+            //   label: 'Telegram',
             //   href: 'https://discordapp.com/invite/docusaurus',
             // },
             {
               label: 'Twitter',
-              href: 'https://x.com/securitylabsxyz',
+              href: 'https://x.com/FunctorNetwork',
             },
           ],
         },
