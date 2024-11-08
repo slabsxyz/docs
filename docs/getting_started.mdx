@@ -9,9 +9,12 @@ slug: /
   <meta prefix="og: http://ogp.me/ns#" />
 </Head>
 
-import AccordionSection from '@site/src/components/accordion';
+**Functor Network** by [Security Labs](https://node.securitylabs.xyz/) is an **autonomy layer for AI agents** — allowing for expressive and autonomous AI to act on-chain in a well-structured and verifiable manner. Specifically, we enable:
+1. **Cross-chain, arbitrary permissions** through modular session keys; providing fine-grain design of on-chain AI behaviour.
+2.  **ZKP-based verifiability** through continuous — yet cheap — validation of their transactions against active permissions.
+3. **AI agents collaboration** through coupled sessions between agents, allowing for simple rules to compose into highly expressive, but still secure, behaviors.
 
-**Functor Network** by [Security Labs](https://node.securitylabs.xyz/) is a **Keystore (KS) Rollup**:
+Functor achieve this through its design as a **Keystore (KS) Rollup**:
 
 :::info[Functor as a keystore Rollup]
 A minimal decentralized [key/value database](/concepts/glossary/#key-value-store) to **store** and enable **cross-chain access** of:
@@ -26,18 +29,23 @@ A minimal decentralized [key/value database](/concepts/glossary/#key-value-store
 - And, **any** other configurations you want **[atomically](/concepts/glossary/#atomic-transaction) updated across any L2**, e.g. updates to cross-chain protocols
 :::
 
-Functor decouples **authentication logic** from **execution logic**. This means: <u>Configure your smart contract **once** and have it updated **everywhere**.</u>
+This is important for AI agents to have a single source of truth for their session keys, permissions and authentication parameters to update atomically across all L2s. Functor coordinates these updates while being a completely permissionless and decentralized infrastructure.
 
-## Why is this important?
-Some immediate benefits, as outlined by [Vitalik in his origial post discussing the idea](https://vitalik.eth.limo/general/2023/06/09/three_transitions.html), come with key recovery; i.e. Changing the authentication to access your assets — important when your credentials have been compromised or just lost. Here's a summary:
+In a nutshell, Functor decouples **authentication logic** from **execution logic**, for the authentication to be synced across L2s. This means: <u>Configure your smart contract **once** and have it updated **everywhere**.</u>
 
-1. <u>**Updating cross-chain is costly:**</u> With Functor, only one update is needed for all chains, bundling multiple updates in a batch of zero-knowledge proofs, making it even cheaper.
+## More than AI — The universal access layer
 
-2. <u>**Updates are not [atomic](/concepts/glossary/#atomic-transaction):**</u> Meaning the update can happen in some chains and not in others, since updating is manual. With Functor, either all updates happen, or none happen: Not partial updates. 
+Sessions for AI agents are a special case for key rotation, which allows users to change their wallet's credentials securely. The problem of recovering access to a lost or stolen wallet underlies the key management space on a fundamental level. Functor solves this more general problem as a natural consequence of its design.
 
-3. <u>**Counterfactual addresses aren't updated:**</u> Counteractual refers to accounts that would be yours in other chains when you decide to use them. This include chains that doesn't even exist[^1]. With Functor, all your new accounts, even before you decide to use them, will be up-to-date with your credentials — ready to use.
+Some immediate benefits of using a Keystore for key recovery are outlined by [Vitalik in his origial post discussing the idea](https://vitalik.eth.limo/general/2023/06/09/three_transitions.html). Here is a summary:
 
-4. <u>**Cross-chain accounts are currently not privacy friendly:**</u> If a user intentionally has many addresses to avoid linking them to each other, they certainly do not want to publicly link all of them by recovering them at or around the same time! With Functor, the update happens uncorrelated to the addresses of the accounts benefitting with the update, preserving privacy.
+1. <u>**Cheaper cross-chain updates:**</u> With Functor, only one update is needed for all chains, bundling multiple updates in a batch of zero-knowledge proofs, making it even cheaper.
+
+2. <u>**[Atomic](/concepts/glossary/#atomic-transaction) updates:**</u> Meaning the update either happens **everywhere** or it does not happen. 
+
+3. <u>**Counterfactual addresses:**</u> Counteractual refers to accounts that would be yours in other chains when you decide to use them. This include chains that doesn't even exist[^1]. With Functor, all your new accounts, even before you decide to use them, will be up-to-date with your credentials — ready to use.
+
+4. <u>**Privacy friendly:**</u> If a user intentionally have many addresses to act untraceably, they certainly do not want to publicly link all of them by recovering them at or around the same time! With Functor, the update happens uncorrelated to the addresses of the accounts benefitting with the update, preserving privacy.
 
 [^1]: This is possible thanks to SCW being created with `CREATE2`, which is deterministic.
 
