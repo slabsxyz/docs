@@ -7,11 +7,11 @@ sidebar_position: 8
   <meta prefix="og: http://ogp.me/ns#" />
 </Head>
 
-### RPC Endpoint
+## RPC Endpoint
 
 Base URL: http://54.163.51.119:3007
 
-### Overview
+## Overview
 
 Functor Network’s RPC endpoint provides methods for creating and managing smart accounts and session keys. This guide explains:
 
@@ -19,7 +19,7 @@ Functor Network’s RPC endpoint provides methods for creating and managing smar
 2. Creating Session Keys with `functor_createSessionKey`.
 3. The process flow for using these tools to manage accounts and sessions efficiently in the Functor Network.
 
-### 1. Method: `functor_createSmartAccount`
+## 1. Method: `functor_createSmartAccount`
 
 This method creates a smart contract wallet, or “smart account,” based on the [ERC-4337](https://www.erc4337.io/docs) standard. These accounts support features like multi-signature (multi-sig), social recovery, and more flexible gas payment options.
 
@@ -68,7 +68,7 @@ fetch('http://54.163.51.119:3007', {
 }
 ```
 
-### 2. Method: `functor_createSessionKey`
+## 2. Method: `functor_createSessionKey`
 
 This method creates a session key with specific permissions, allowing certain actions within a smart contract wallet based on the smart contract ABI.
 
@@ -128,7 +128,7 @@ fetch('http://54.163.51.119:3007', {
 }
 ```
 
-### Process Flow for Account and Session Management
+## Process Flow for Account and Session Management
 
 1. **Account Creation**: Use `functor_createSmartAccount` to set up a smart account, providing the owner’s address and optional recovery mechanisms.
 2. **Session Key Creation**: Generate a session key with `functor_createSessionKey` to enable controlled interactions with the smart account.
