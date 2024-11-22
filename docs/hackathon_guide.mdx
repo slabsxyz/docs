@@ -1,0 +1,157 @@
+---
+title: Hackathon Guide
+sidebar_position: 8
+---
+
+<Head>
+  <meta prefix="og: http://ogp.me/ns#" />
+</Head>
+
+### RPC Endpoint
+
+Base URL: http://54.163.51.119:3007
+
+### Overview
+
+Functor Network’s RPC endpoint provides methods for creating and managing smart accounts and session keys. This guide explains:
+
+1. Creating Smart Accounts with `functor_createSmartAccount`.
+2. Creating Session Keys with `functor_createSessionKey`.
+3. The process flow for using these tools to manage accounts and sessions efficiently in the Functor Network.
+
+### 1. Method: `functor_createSmartAccount`
+
+This method creates a smart contract wallet, or “smart account,” based on the [ERC-4337](https://www.erc4337.io/docs) standard. These accounts support features like multi-signature (multi-sig), social recovery, and more flexible gas payment options.
+
+### Parameters
+
+- **owner**: Wallet address of the account owner.
+- **recoveryMechanism**: List of guardian addresses for account recovery.
+- **paymaster**: Address of a contract that sponsors gas payments.
+
+### Sample Request
+
+Here’s a JavaScript example using fetch to create a smart account:
+
+```javascript
+fetch('http://54.163.51.119:3007', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json', 'x-api-key': '[Your API key goes here]' },
+  body: JSON.stringify({
+    "id": 1,
+    "jsonrpc": "2.0",
+    "method": "functor_createSmartAccount",
+    "params": [
+      "0x1234567890abcdef1234567890abcdef12345678",
+      [
+        "0xabcdef1234567890abcdef1234567890abcdef12",
+        "0xabcdef1234567890abcdef1234567890abcdef13"
+      ],
+      "0xabcdef1234567890abcdef1234567890abcdef14"
+    ]
+  })
+})
+.then(response => response.json())
+.then(data => console.log(data));
+```
+
+### Expected Response
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "smartAccountAddress": "0x4abd3dD0a1efccad89BE4855Ccdea32E8CCBF591",
+    "creationDate": 71773046
+  },
+  "id": 1
+}
+```
+
+### 2. Method: `functor_createSessionKey`
+
+This method creates a session key with specific permissions, allowing certain actions within a smart contract wallet based on the smart contract ABI.
+
+### Parameters
+
+- **walletAddress**: Address of the wallet to which the session key is linked.
+- **permissions**: Array of permissions defining which methods the session key can invoke.
+- **expiry**: Duration (in seconds) until the session key expires.
+- **metadata**: (Optional) Additional information, such as a label or restriction indicator.
+
+### Sample Request
+
+```javascript
+fetch('http://54.163.51.119:3007', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json', 'x-api-key': '[Your API key goes here]' },
+  body: JSON.stringify({
+    "jsonrpc": "2.0",
+    "method": "functor_createSessionKey",
+    "params": [
+        "0x1234567890abcdef1234567890abcdef12345678",
+        [
+            {
+                "contractAbi": "[{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"","type":"bool"}],"type":"function"}]",
+                "allowedMethods": [
+                    "transfer(address,uint256)"
+                ]
+            }
+        ],
+        3600,
+        {
+            "label": "AI Agent Session Key",
+            "restricted": true
+        }
+    ],
+    "id": 1
+  })
+})
+.then(response => response.json())
+.then(data => console.log(data));
+```
+
+### Expected Response
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "sessionKey": "0xabc123456...",
+    "expiry": 3600,
+    "metadata": {
+      "label": "AI Agent Session Key",
+      "restricted": true
+    }
+  },
+  "id": 1
+}
+```
+
+### Process Flow for Account and Session Management
+
+1. **Account Creation**: Use `functor_createSmartAccount` to set up a smart account, providing the owner’s address and optional recovery mechanisms.
+2. **Session Key Creation**: Generate a session key with `functor_createSessionKey` to enable controlled interactions with the smart account.
+
+### Working Example
+
+### Step-by-step Instructions
+
+1. Create a directory and initialize a Node.js project:
+   ```bash
+   mkdir test_functor_rpc;
+   cd test_functor_rpc;
+   npm init -y;
+   touch request.js;
+   ```
+
+2. Copy the following code into `request.js`:
+
+```javascript
+// Code for createSmartAccount and createSessionKey
+```
+
+3. Run the script:
+   ```bash
+   node request.js
+   ```
